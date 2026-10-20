@@ -32,6 +32,15 @@ Executed locally on 2026-10-19, Python 3.12, macOS ARM64. These are observed res
 - Reference summaries cannot validate underlying price distributions or reconstruct monthly/county records.
 - No official IDX rubric was supplied. This implementation follows the requested reference workflow.
 - No claim of WCAG conformance, full mobile browser QA, user research or measured adoption is made.
-- GitHub Actions is configured; its remote result must be checked after publication, not inferred locally.
+- GitHub Actions completed successfully for commit `213d24d`: lint, formatting, the complete PostgreSQL-backed test suite, and compile checks. [Verified run](https://github.com/tantancodes/california-housing-atlas/actions/runs/39370826178).
 - Cloud target is Streamlit Community Cloud. A public deployment is not complete until its live URL is
   recorded and verified; local/container results alone do not establish that.
+
+## Publication and cloud handoff
+
+Repository: https://github.com/tantancodes/california-housing-atlas. Only public Census artifacts are tracked.
+Streamlit Community Cloud was opened at https://share.streamlit.io; sign-in explicitly requires the account
+owner to agree to the Terms of Service. Deployment is pending that user action; no public app URL is claimed.
+Local visual artifacts: `dashboard.jpg` and `repository.jpg` are intentionally untracked browser verification captures.
+Automatic approval review declined their public upload because screenshots may identify the account/browser.
+Only text documentation and the independent implementation/public Census dataset are published.

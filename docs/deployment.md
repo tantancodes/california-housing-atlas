@@ -1,6 +1,8 @@
 # Deployment: Streamlit Community Cloud
 
 Target selected by the user: Streamlit Community Cloud.
+Repository: https://github.com/tantancodes/california-housing-atlas
+Current status: repository published and CI passed; account-owner sign-in/terms acceptance pending.
 
 1. Publish only this independent implementation and `data/public/` to a GitHub repository.
    Do not commit `data/raw`, `data/processed`, `data/reference`, `data/cache`, `.env` or secrets.

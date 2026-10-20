@@ -13,3 +13,7 @@ data/cache/
 .streamlit/secrets.toml
 *.log
 .DS_Store
+
+# Local browser verification captures are not publication assets.
+docs/dashboard.jpg
+docs/repository.jpg

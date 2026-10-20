@@ -6,6 +6,10 @@ public California county affordability explorer. Streamlit + pandas + Plotly + G
 **This reproduces relevant behavior of a confirmed reference implementation; it does not certify compliance
 with an unseen official IDX Exchange rubric. No private MLS observations are included.**
 
+[GitHub repository](https://github.com/tantancodes/california-housing-atlas) · [Passing CI](https://github.com/tantancodes/california-housing-atlas/actions/runs/39370826178)
+
+[Verification record](docs/verification.md)
+
 ## Run locally
 
 Python 3.12 is the tested runtime. From this directory:
