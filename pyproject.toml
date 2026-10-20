@@ -7,7 +7,7 @@ name = "california-housing-atlas"
 version = "0.1.0"
 description = "Auditable housing analytics: CRMLS workflow and public California county exploration"
 requires-python = ">=3.11"
-dependencies = ["pandas>=2.2,<3", "numpy>=2,<3", "streamlit>=1.40,<2", "plotly>=6,<7", "geopandas>=1,<2"]
+dependencies = ["pandas>=2.2,<3", "numpy>=2,<3", "streamlit>=1.40,<2", "plotly>=6,<7", "geopandas>=1,<2", "pyarrow>=14,<25"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "ruff>=0.9,<1"]

@@ -35,6 +35,8 @@ checks are in `verification.md`. These are engineering results, not user/busines
 
 ## Remaining work
 
-Authorized full-feed verification, official assignment comparison when available, public cloud verification,
-mobile/accessibility evaluation, usability testing and profiling. Add screenshots and a short narrated demo
+Authorized full-feed verification, official assignment comparison when available, broader
+mobile/accessibility evaluation, usability testing and profiling.
+The public release is live at https://california-housing-atlas.streamlit.app/; deployment interactions
+and public CSV output were checked directly. Add screenshots and a short narrated demo
 from the final deployed public-data app. Do not include private MLS records or claim employer endorsement.

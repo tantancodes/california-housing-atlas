@@ -6,7 +6,7 @@ public California county affordability explorer. Streamlit + pandas + Plotly + G
 **This reproduces relevant behavior of a confirmed reference implementation; it does not certify compliance
 with an unseen official IDX Exchange rubric. No private MLS observations are included.**
 
-[GitHub repository](https://github.com/tantancodes/california-housing-atlas) · [Passing CI](https://github.com/tantancodes/california-housing-atlas/actions/runs/39370826178)
+[Live dashboard](https://california-housing-atlas.streamlit.app/) · [GitHub repository](https://github.com/tantancodes/california-housing-atlas) · [Passing CI](https://github.com/tantancodes/california-housing-atlas/actions/runs/39370826178)
 
 [Verification record](docs/verification.md)
 
@@ -141,7 +141,8 @@ Target: **Streamlit Community Cloud**, entrypoint `app.py`, branch `main`, Pytho
 `requirements.txt` installs the locked dependencies and the local package. The bundled Census snapshot
 works without credentials. Leave `ATLAS_ENABLE_PRIVATE` disabled; do not upload CRMLS files or reference assets.
 See [deployment instructions](docs/deployment.md) for the exact cloud settings and container alternative.
-Public deployment is complete only when a live URL has been verified; configuration alone is not deployment.
+The public deployment at https://california-housing-atlas.streamlit.app/ has been verified: 58 counties,
+vintage/indicator filters, map-linked comparisons and the filtered public CSV download.
 
 ## Structure
 

@@ -2,7 +2,13 @@
 
 Target selected by the user: Streamlit Community Cloud.
 Repository: https://github.com/tantancodes/california-housing-atlas
-Current status: repository published and CI passed; account-owner sign-in/terms acceptance pending.
+Live app: https://california-housing-atlas.streamlit.app/
+Current status: deployed and verified, Python 3.12.15; public sharing enabled.
+
+Community Cloud selected PyArrow 24.0.0 through its compatibility guard during the first build.
+The project now pins the same version rather than relying on host-side dependency replacement.
+See [upstream Arrow issue](https://github.com/apache/arrow/issues/50471) for the threading regression
+behind the host guard. No database credentials, private-mode settings, or MLS files were configured.
 
 1. Publish only this independent implementation and `data/public/` to a GitHub repository.
    Do not commit `data/raw`, `data/processed`, `data/reference`, `data/cache`, `.env` or secrets.

@@ -33,14 +33,28 @@ Executed locally on 2026-10-19, Python 3.12, macOS ARM64. These are observed res
 - No official IDX rubric was supplied. This implementation follows the requested reference workflow.
 - No claim of WCAG conformance, full mobile browser QA, user research or measured adoption is made.
 - GitHub Actions completed successfully for commit `213d24d`: lint, formatting, the complete PostgreSQL-backed test suite, and compile checks. [Verified run](https://github.com/tantancodes/california-housing-atlas/actions/runs/39370826178).
-- Cloud target is Streamlit Community Cloud. A public deployment is not complete until its live URL is
-  recorded and verified; local/container results alone do not establish that.
+- Streamlit Community Cloud deployment is verified at https://california-housing-atlas.streamlit.app/.
+  This records a functional release check, not continuous uptime or a performance guarantee.
 
-## Publication and cloud handoff
+## Publication and cloud verification
 
 Repository: https://github.com/tantancodes/california-housing-atlas. Only public Census artifacts are tracked.
-Streamlit Community Cloud was opened at https://share.streamlit.io; sign-in explicitly requires the account
-owner to agree to the Terms of Service. Deployment is pending that user action; no public app URL is claimed.
+The account owner completed sign-in. The app was deployed from `main/app.py` at
+https://california-housing-atlas.streamlit.app/ using Python 3.12.15. Observed live checks:
+
+- All 58 counties rendered; switching ACS ending year to 2022 showed the 2018–2022 period.
+- Switching to the value/income indicator updated map and comparison units.
+- Clicking San Diego on the map updated the linked chart, history and selected table.
+- The public CSV download was opened and checked: one 2022 San Diego estimate (`06073`), home value
+  $725,200, matching the bundled public dataset; no property-level observations.
+- Share dialog showed public sharing enabled. Hosted source selector contained public and reference
+  modes only; private CRMLS mode was unavailable.
+- Basic 390×844 viewport check: headings/context/metrics reflowed and the sidebar filter toggle worked.
+  This is not a full mobile/device or WCAG audit. The viewport override was reset afterwards.
+- Community Cloud applied PyArrow 24.0.0 via its compatibility guard; the lockfile/project constraint
+  now use the same version. Lint, formatting and the tests were rerun for this dependency change.
+
+
 Local visual artifacts: `dashboard.jpg` and `repository.jpg` are intentionally untracked browser verification captures.
 Automatic approval review declined their public upload because screenshots may identify the account/browser.
 Only text documentation and the independent implementation/public Census dataset are published.
