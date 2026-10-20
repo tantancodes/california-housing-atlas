@@ -11,6 +11,7 @@ import plotly.express as px
 import streamlit as st
 
 from atlas.public import validate_public
+from atlas.style import MAP_SCALE, PALETTE, chart, section
 
 LABELS = {
     "median_home_value": "Median owner-occupied home value (USD)",
@@ -31,8 +32,6 @@ def load_public(csv_text: str, geojson_text: str) -> tuple[pd.DataFrame, dict]:
 
 def public_view(root: Path) -> None:
     folder = root / "data/public"
-    st.subheader("California county affordability explorer")
-    st.caption("Public Census ACS estimates · all 58 counties · no private MLS feed")
     if not (folder / "acs_counties.csv").exists():
         st.info("Download the reproducible public dataset: python -m atlas.cli public")
         return
@@ -50,99 +49,153 @@ def public_view(root: Path) -> None:
         sorted(data.county.unique()),
         default=[c for c in ["Alameda", "Los Angeles", "San Francisco"] if c in set(data.county)],
     )
-    metric = st.sidebar.selectbox("Map indicator", list(LABELS)[:3], format_func=LABELS.get)
+    metric = st.sidebar.selectbox(
+        "Map indicator",
+        list(LABELS)[:3],
+        format_func={
+            "median_home_value": "Home value",
+            "median_household_income": "Household income",
+            "value_to_income": "Value / income",
+        }.get,
+    )
     current = data[data.year.eq(year)].copy()
-    st.info(
-        f"{year - 4}–{year} five-year estimates. Home values describe owner-occupied housing, not listing or "
-        "sale prices. The value-to-income ratio compares two county medians from different populations; "
-        "it is a descriptive indicator, not a household mortgage affordability calculation."
+    st.markdown(
+        f'<div class="atlas-period"><span>ACS {year - 4}–{year}</span>'
+        "<span>58 counties</span><span>US Census Bureau · Five-year estimates</span></div>",
+        unsafe_allow_html=True,
     )
     a, b, c = st.columns(3)
     a.metric("Counties", str(len(current)))
     b.metric("County median home value", f"${current.median_home_value.median():,.0f}")
     c.metric("Median county value/income", f"{current.value_to_income.median():.1f}×")
-    st.caption("Overview metrics are unweighted medians across counties, not California statewide medians.")
-    map_fig = px.choropleth(
-        current,
-        geojson=geo,
-        locations="county_fips",
-        featureidkey="properties.county_fips",
-        color=metric,
-        hover_name="county",
-        color_continuous_scale="Viridis",
-        labels=LABELS,
-        hover_data={"county_fips": False, "home_value_moe": ":,.0f", "income_moe": ":,.0f"},
+    st.caption(
+        "Unweighted county medians, not statewide estimates. Home values describe owner-occupied housing, not sale prices."
     )
-    map_fig.update_geos(fitbounds="locations", visible=False)
-    map_fig.update_layout(margin=dict(l=0, r=0, t=10, b=0), height=510, clickmode="event+select")
-    event = st.plotly_chart(
-        map_fig,
-        width="stretch",
-        on_select="rerun",
-        selection_mode="points",
-        key=f"county_map_{year}_{metric}",
-    )
+    left, right = st.columns([1.4, 1], gap="medium")
+    with left, st.container(border=True, key="geography"):
+        section("01", "The geography of housing")
+        st.subheader("Explore California")
+        map_fig = px.choropleth(
+            current,
+            geojson=geo,
+            locations="county_fips",
+            featureidkey="properties.county_fips",
+            color=metric,
+            hover_name="county",
+            color_continuous_scale=MAP_SCALE,
+            labels=LABELS,
+            hover_data={"county_fips": False, "home_value_moe": ":,.0f", "income_moe": ":,.0f"},
+        )
+        map_fig.update_geos(fitbounds="locations", visible=False, bgcolor="rgba(0,0,0,0)")
+        map_fig.update_traces(marker_line_color="#ffffff", marker_line_width=0.65)
+        map_fig.update_layout(
+            margin=dict(l=0, r=0, t=5, b=30),
+            height=440,
+            clickmode="event+select",
+            coloraxis_colorbar=dict(
+                orientation="h",
+                x=0.5,
+                xanchor="center",
+                y=-0.03,
+                len=0.8,
+                thickness=8,
+                title=dict(text=LABELS[metric], side="bottom"),
+                tickfont=dict(size=10),
+                outlinewidth=0,
+            ),
+        )
+        event = chart(
+            map_fig,
+            width="stretch",
+            on_select="rerun",
+            selection_mode="points",
+            key=f"county_map_{year}_{metric}",
+        )
+        st.caption("Select a county on the map. Use the sidebar to compare several places.")
     clicked = [p.get("location") for p in event.selection.points if p.get("location")]
-    # Map selection takes precedence; sidebar comparison remains useful on keyboard/mobile.
     focus = current[current.county_fips.isin(clicked)] if clicked else current[current.county.isin(selected)]
     if focus.empty:
         focus = current
-    st.caption(
-        "Select counties on the map to update linked charts, or use the keyboard-accessible county selector."
-    )
     focus_names = focus.county.tolist()
-    st.subheader("County comparisons")
-    st.plotly_chart(
-        px.bar(
+    with right, st.container(border=True, key="comparison"):
+        section("02", "Places in perspective")
+        st.subheader("County comparisons")
+        st.caption(f"{len(focus)} selected · {year - 4}–{year}")
+        comparison = px.bar(
             focus.sort_values(metric),
-            x="county",
-            y=metric,
+            y="county",
+            x=metric,
+            orientation="h",
             labels=LABELS,
             color="county",
-            color_discrete_sequence=px.colors.qualitative.Safe,
-        ),
-        width="stretch",
-    )
+            color_discrete_sequence=PALETTE,
+        )
+        comparison.update_layout(
+            height=397, showlegend=False, bargap=0.55, margin=dict(l=0, r=20, t=20, b=40)
+        )
+        comparison.update_yaxes(title=None, showgrid=False)
+        comparison.update_xaxes(showgrid=True, gridcolor="#edf0e9")
+        chart(comparison, width="stretch")
+        st.caption("Each bar represents a county estimate. Sampling uncertainty varies by county.")
     history = data[data.county.isin(focus_names)]
-    if len(years) > 1:
+    trend_col, relationship_col = st.columns(2, gap="medium")
+    with trend_col, st.container(border=True, key="history"):
+        section("03", "Across time")
         st.subheader("Change across ACS periods")
-        st.plotly_chart(
-            px.line(
+        if len(years) > 1:
+            trend = px.line(
                 history,
                 x="year",
                 y=metric,
                 color="county",
                 markers=True,
                 labels=LABELS,
-                color_discrete_sequence=px.colors.qualitative.Safe,
-            ).update_xaxes(dtick=1, tickformat="d"),
-            width="stretch",
-        )
+                color_discrete_sequence=PALETTE,
+            )
+            trend.update_xaxes(dtick=1, tickformat="d", title=None)
+            trend.update_traces(line_width=2.5, marker_size=7)
+            trend.update_layout(height=330)
+            chart(trend, width="stretch")
         st.caption(
-            "Nominal dollars. Lines connect published five-year estimates, not monthly observations. "
-            "Adjacent ACS five-year vintages overlap; changes are not independent annual measurements."
+            "Nominal dollars. Five-year vintages overlap; lines do not represent independent annual changes."
         )
-    st.subheader("Income and housing values")
-    st.plotly_chart(
-        px.scatter(
+    with relationship_col, st.container(border=True, key="relationship"):
+        section("04", "The bigger picture")
+        st.subheader("Income and housing values")
+        relationship = px.scatter(
             current,
             x="median_household_income",
             y="median_home_value",
             hover_name="county",
             color="value_to_income",
-            color_continuous_scale="Viridis",
+            color_continuous_scale=MAP_SCALE,
             labels=LABELS,
-        ),
-        width="stretch",
+        )
+        relationship.update_traces(marker=dict(size=8, line=dict(width=1, color="#fff")))
+        relationship.update_layout(height=330, coloraxis_showscale=False)
+        chart(relationship, width="stretch")
+        st.caption("All 58 counties. Observational association only; this does not establish causation.")
+    section("05", "Behind the charts")
+    st.subheader("The selected data")
+    st.caption(
+        "Value/income compares two medians from different populations; it is not a household mortgage affordability calculation."
     )
-    st.caption("Observational association only. This chart does not establish causation.")
     st.dataframe(
         focus[["county", "period", *list(LABELS)[:3], "home_value_moe", "income_moe"]],
         hide_index=True,
         width="stretch",
+        column_config={
+            "county": "County",
+            "period": "ACS period",
+            "median_home_value": st.column_config.NumberColumn("Home value", format="$%,.0f"),
+            "median_household_income": st.column_config.NumberColumn("Household income", format="$%,.0f"),
+            "value_to_income": st.column_config.NumberColumn("Value / income", format="%.1f×"),
+            "home_value_moe": st.column_config.NumberColumn("Home value MOE", format="$%,.0f"),
+            "income_moe": st.column_config.NumberColumn("Income MOE", format="$%,.0f"),
+        },
     )
     st.download_button(
-        "Download selected public county estimates (CSV)",
+        "Download selected data ↓",
         focus.to_csv(index=False),
         file_name=f"california_counties_acs_{year}.csv",
         mime="text/csv",
@@ -151,7 +204,7 @@ def public_view(root: Path) -> None:
     if rates_path.exists():
         rates = pd.read_csv(rates_path)
         st.subheader("US mortgage-rate context")
-        st.plotly_chart(
+        chart(
             px.line(
                 rates,
                 x="year_month",

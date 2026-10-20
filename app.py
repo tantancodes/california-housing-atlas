@@ -13,11 +13,19 @@ import streamlit as st
 
 from atlas.io import DataError
 from atlas.reference import REFERENCE_URL, load_summary, reported_value
+from atlas.style import apply_style, chart
 
 ROOT = Path(__file__).resolve().parent
 st.set_page_config(page_title="California Housing Atlas", page_icon="◈", layout="wide")
+apply_style()
+st.markdown('<div class="atlas-eyebrow">California / Housing research</div>', unsafe_allow_html=True)
 st.title("California Housing Atlas")
-st.caption("Explore housing evidence • compare places • understand the limits")
+st.caption("A county-by-county view of housing value, income, and affordability.")
+st.sidebar.markdown(
+    '<div class="atlas-brand"><div class="atlas-mark" aria-hidden="true">a</div>'
+    '<div><div class="atlas-brand-name">ATLAS</div><div class="atlas-brand-sub">California housing</div></div></div>',
+    unsafe_allow_html=True,
+)
 MODES = ["Public county atlas", "Reference summaries"]
 if os.getenv("ATLAS_ENABLE_PRIVATE") == "1":
     MODES.append("Local CRMLS analysis")
@@ -50,7 +58,7 @@ def reference_view() -> None:
     selected = numeric[numeric.item.eq(field)]
     quantiles = selected[selected.metric.isin(["p10", "p25", "p50", "p75", "p90"])].copy()
     if not quantiles.empty:
-        st.plotly_chart(
+        chart(
             px.bar(
                 quantiles,
                 x="metric",
@@ -69,7 +77,7 @@ def reference_view() -> None:
     missing = df[(df.section == "null_summary") & (df.metric == "null_percent")].sort_values(
         "number", ascending=False
     )
-    st.plotly_chart(
+    chart(
         px.bar(
             missing.head(20),
             x="number",
@@ -143,12 +151,10 @@ def local_view() -> None:
     prices = df.MarketPrice.dropna()
     b.metric("Median price", f"${prices.median():,.0f}" if len(prices) else "Unavailable")
     c.metric("Valid price observations", f"{len(prices):,}")
-    st.plotly_chart(
-        px.histogram(df, x="MarketPrice", nbins=50, labels={"MarketPrice": "Price (USD)"}), width="stretch"
-    )
-    st.plotly_chart(px.box(df, x="MarketPrice", labels={"MarketPrice": "Price (USD)"}), width="stretch")
+    chart(px.histogram(df, x="MarketPrice", nbins=50, labels={"MarketPrice": "Price (USD)"}), width="stretch")
+    chart(px.box(df, x="MarketPrice", labels={"MarketPrice": "Price (USD)"}), width="stretch")
     monthly = summarize(df, ["year_month"]).dropna(subset=["year_month"])
-    st.plotly_chart(
+    chart(
         px.line(
             monthly,
             x="year_month",
@@ -162,7 +168,7 @@ def local_view() -> None:
         st.dataframe(summarize(df, ["CountyOrParish"]), hide_index=True)
     if "rate_30yr_fixed" in df:
         rate = df.groupby("year_month", as_index=False).rate_30yr_fixed.first()
-        st.plotly_chart(
+        chart(
             px.line(
                 rate,
                 x="year_month",
@@ -199,3 +205,9 @@ try:
 except (OSError, ValueError, DataError, KeyError) as exc:
     st.error(f"Unable to load data: {exc}")
     st.info("Check the documented ingestion command and source schema. No fallback statistics are generated.")
+
+
+st.sidebar.markdown(
+    '<div class="atlas-sidebar-note">Built for a closer look.<br>Public evidence. Transparent methods.</div>',
+    unsafe_allow_html=True,
+)

@@ -58,9 +58,17 @@ Published reference CSVs are a third, aggregate-only evidence view, with no inve
 
 ## Visual and interaction system
 
-Light neutral canvas (#F6F8FA), dark ink (#172C3B), teal actions (#007F73). Use Viridis for continuous
-indicators and Plotly's Safe categorical palette; hover, legends and tables convey meaning beyond color.
-Streamlit's native focus/keyboard controls and responsive columns are used without CSS overrides.
-One clear page title, source caption, period context, overview metrics, map, linked comparisons, evidence.
-No automatic animations, decorative KPI changes or fabricated user/business metrics. Mobile and screen-reader
-QA remain release checks; native responsive components alone do not establish WCAG conformance.
+Warm neutral canvas (#F6F7F2), ink sidebar (#1B2E2D), forest accents (#286C60),
+Georgia display typography and a system sans-serif for controls. Original CSS draws on the map-first,
+restrained design patterns of [Felt](https://felt.com/) and [CARTO](https://carto.com/); no third-party
+stylesheets, fonts or assets are copied or loaded. Shared styles live in `atlas/styles.css` and the
+Plotly template in `atlas/style.py`. These are packaged with the app, including container/cloud installs.
+
+A horizontal legend and muted sequential green scale keep the county map prominent. The main map and
+comparison sit side by side on desktop; native Streamlit columns stack on small screens. Numbered section
+labels, thin borders, and whitespace establish hierarchy. Labels, hover information and data tables convey
+meaning beyond color. Native keyboard controls and visible focus states remain available. Reduced-motion
+preferences are respected. Source/period context and statistical limitations remain visible.
+
+No fabricated user/business metrics or decorative KPI changes. Native responsive components and basic
+viewport checks alone do not establish WCAG conformance or replace device/screen-reader testing.
