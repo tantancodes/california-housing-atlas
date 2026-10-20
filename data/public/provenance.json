@@ -1,0 +1,23 @@
+{
+  "retrieved_utc": "2026-10-20T04:31:40.715424+00:00",
+  "sources": [
+    "https://www2.census.gov/programs-surveys/acs/summary_file/2022/table-based-SF/data/5YRData/acsdt5y2022-b19013.dat",
+    "https://www2.census.gov/programs-surveys/acs/summary_file/2022/table-based-SF/data/5YRData/acsdt5y2022-b25077.dat",
+    "https://www2.census.gov/programs-surveys/acs/summary_file/2023/table-based-SF/data/5YRData/acsdt5y2023-b19013.dat",
+    "https://www2.census.gov/programs-surveys/acs/summary_file/2023/table-based-SF/data/5YRData/acsdt5y2023-b25077.dat",
+    "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b19013.dat",
+    "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25077.dat",
+    "https://www2.census.gov/geo/tiger/GENZ2023/shp/cb_2023_us_county_20m.zip"
+  ],
+  "sha256": {
+    "acsdt5y2022-b19013.dat": "54dc9c5f15146d861080919372c1dde3f8b51c7bc3f8c175d97b60f2d1c6b85b",
+    "acsdt5y2022-b25077.dat": "9283114ae7bb7f961b21195a040b6c892ddfac5a94864312ba962ea369f86631",
+    "acsdt5y2023-b19013.dat": "c9007017b7bb29ba758c77612ec9a4a0b897a4ed931d527754629866f580a110",
+    "acsdt5y2023-b25077.dat": "302d57367033bd13b824c8d658cd3ef98819adb366d9ddd4c3861a9707eb734c",
+    "acsdt5y2024-b19013.dat": "b25a176b0e6c339b6f3a2a0d3d8446bf06f5f080b4395993ec9a8313efb1c229",
+    "acsdt5y2024-b25077.dat": "89eb2153764a2330b23959d8bbc29b3a8f3016f087b990f2a8ea0d5096d9a816",
+    "county_boundaries.zip": "479956f6e3cb1573705c1ceb35d17ca7cd1b5179f3947ee6adbaa274b7e931e4",
+    "acs_counties.csv": "b9d4822a849d6b10e89d147da7ea76ca980912ac904ade91d5d98cd7997c948f",
+    "counties.geojson": "729266c3bfd95b3e20ee7c8a507948d9c7c5b64ad2c80541b50367b9501308b0"
+  }
+}

@@ -1,0 +1,26 @@
+services:
+  dashboard:
+    build: .
+    ports:
+      - "127.0.0.1:8501:8501"
+    environment:
+      ATLAS_ENABLE_PRIVATE: "0"
+    restart: unless-stopped
+  db:
+    image: postgres:17-alpine
+    profiles: [database]
+    environment:
+      POSTGRES_USER: atlas
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a local POSTGRES_PASSWORD}
+      POSTGRES_DB: atlas
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - atlas_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U atlas -d atlas"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  atlas_pgdata:
