@@ -1,9 +1,26 @@
 [theme]
+base = "light"
 primaryColor = "#286C60"
-backgroundColor = "#F6F7F2"
-secondaryBackgroundColor = "#E9EDE4"
-textColor = "#1B292C"
+backgroundColor = "#F7F6F0"
+secondaryBackgroundColor = "#EEEDE5"
+textColor = "#26342E"
 font = "sans serif"
+headingFont = "serif"
+headingFontSizes = ["3rem", "2rem", "1.5rem", "1.2rem", "1rem", "1rem"]
+headingFontWeights = [400, 400, 400, 500, 500, 500]
+borderColor = "#DEDFD5"
+baseRadius = "0.4rem"
+buttonRadius = "0.35rem"
+showWidgetBorder = true
+dataframeHeaderBackgroundColor = "#EEEDE5"
+
+[theme.sidebar]
+backgroundColor = "#253D35"
+secondaryBackgroundColor = "#344F44"
+textColor = "#F4F3EA"
+primaryColor = "#C0D5C6"
+borderColor = "#668475"
+headingFont = "sans serif"
 
 [server]
 headless = true

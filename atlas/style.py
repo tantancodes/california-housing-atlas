@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 import plotly.io as pio
 import streamlit as st
 
-PALETTE = ["#286c60", "#b77b52", "#667fa0", "#817290", "#9a973f", "#b96666"]
+PALETTE = ["#286c60", "#59675f", "#89968b", "#3d5147", "#abb4a7", "#243e35"]
 MAP_SCALE = [[0, "#edf0df"], [0.25, "#ccd8b7"], [0.5, "#90b394"], [0.75, "#508d7a"], [1, "#195c52"]]
 
 
@@ -45,7 +45,7 @@ def apply_style() -> None:
 
 
 def chart(figure: go.Figure, **kwargs: Any) -> Any:
-    figure.update_layout(paper_bgcolor="#ffffff", plot_bgcolor="#ffffff")
+    figure.update_layout(template="atlas", paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
     return st.plotly_chart(figure, theme=None, config={"displaylogo": False}, **kwargs)
 
 

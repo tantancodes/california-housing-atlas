@@ -20,7 +20,7 @@ st.set_page_config(page_title="California Housing Atlas", page_icon="◈", layou
 apply_style()
 st.markdown('<div class="atlas-eyebrow">California / Housing research</div>', unsafe_allow_html=True)
 st.title("California Housing Atlas")
-st.caption("A county-by-county view of housing value, income, and affordability.")
+st.write("Exploring how home values and household incomes vary across California's 58 counties.")
 st.sidebar.markdown(
     '<div class="atlas-brand"><div class="atlas-mark" aria-hidden="true">a</div>'
     '<div><div class="atlas-brand-name">ATLAS</div><div class="atlas-brand-sub">California housing</div></div></div>',

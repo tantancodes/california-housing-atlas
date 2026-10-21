@@ -1,50 +1,22 @@
-/* Original Atlas styles: editorial typography, restrained surfaces, map-first hierarchy. */
-:root { --atlas-ink: #1b292c; --atlas-muted: #637271; --atlas-line: #e1e5df; --atlas-accent: #266c60; }
-[data-testid="stAppViewContainer"] { background: #f6f7f2; }
-[data-testid="stMainBlockContainer"] { max-width: 1480px; padding: 4.6rem 3.2rem 3rem; }
-h1 { font-family: Georgia, 'Times New Roman', serif !important; font-size: clamp(2.25rem, 4.1vw, 3.65rem) !important; font-weight: 400 !important; letter-spacing: -.055em !important; line-height: 1.09 !important; padding-bottom: .65rem !important; }
-h2, h3 { font-weight: 500 !important; letter-spacing: -.025em !important; }
-h3 { font-size: 1.14rem !important; padding-top: .35rem !important; }
-[data-testid="stCaptionContainer"] { color: var(--atlas-muted); line-height: 1.6; }
-.atlas-eyebrow { font: 500 .66rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .16em; color: #54746a; text-transform: uppercase; margin-bottom: .7rem; }
-.atlas-brand { display:flex; align-items:center; gap:12px; margin-bottom:2.4rem; }
-.atlas-mark { width:32px; height:36px; border:1px solid #8aa99a; border-radius: 50% 50% 4px 4px; display:grid; place-items:center; color:#b8cfbc; font:22px Georgia,serif; }
-.atlas-brand-name { color:#f3f4ec; font-size:1.06rem; letter-spacing:.04em; font-weight:500; }
-.atlas-brand-sub { color:#9faeaa; font: .62rem/1.9 ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; }
-.atlas-sidebar-note { border-top:1px solid #354544; color:#aab7b1; padding-top:1rem; margin-top:2.2rem; font-size:.74rem; line-height:1.7; }
-.atlas-section { color:#68766e; font: .64rem/1.7 ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; margin-bottom:.35rem; }
-.atlas-period { display:flex; flex-wrap:wrap; align-items:center; gap:.7rem; margin:.2rem 0 .5rem; font-size:.75rem; color:#637271; }
-.atlas-period span:first-child { background:#e8eee5; color:#355d4e; border:1px solid #d9e3d5; border-radius:4px; padding:.28rem .55rem; font: .68rem ui-monospace,monospace; }
-[data-testid="stSidebar"] { background:#1b2e2d; border-right:0; }
-[data-testid="stSidebar"] [data-testid="stSidebarContent"] { padding-top:1.2rem; }
-[data-testid="stSidebar"] [data-testid="stWidgetLabel"] p { color:#c0ccc6 !important; font-size:.73rem; font-weight:400; }
-[data-testid="stSidebar"] [data-baseweb="select"] > div { background:#253b38; border-color:#40534c; border-radius:6px; color:#f0f3eb; font-size:.8rem; min-height:42px; }
-[data-testid="stSidebar"] [data-baseweb="select"] input { color:#f0f3eb; }
-[data-testid="stSidebar"] [data-baseweb="select"] svg { fill:#c0ccc6; }
-[data-testid="stSidebar"] [data-baseweb="tag"] { background:#3b5750; color:#f0f3eb; border-radius:4px; font-size:.7rem; }
-[data-testid="stSidebar"] button { color:#d4e0d8; }
-[data-testid="stMetric"] { padding:.75rem 0 1.1rem; border-bottom:1px solid var(--atlas-line); }
-[data-testid="stMetricLabel"] p { color:#67736b; font-size:.72rem; font-weight:400; }
-[data-testid="stMetricValue"] { font-family:Georgia,'Times New Roman',serif; letter-spacing:-.045em; font-weight:400; font-size:2.45rem; color:var(--atlas-ink); }
-.st-key-geography, .st-key-comparison, .st-key-history, .st-key-relationship { background:#fff; border-color:var(--atlas-line) !important; border-radius:8px !important; padding:.5rem .35rem .2rem; box-shadow:0 2px 4px #1b292c03; }
-[data-testid="stExpander"] { background:transparent; border-color:var(--atlas-line); border-radius:6px; }
-[data-testid="stDownloadButton"] button { background:#233e35; color:#fff; border:1px solid #233e35; border-radius:5px; font-size:.77rem; padding:.55rem 1rem; }
-[data-testid="stDownloadButton"] button:hover { background:#355e4d; color:#fff; border-color:#355e4d; }
-button:focus-visible, input:focus-visible { outline:2px solid #286c60 !important; outline-offset:3px; }
-[data-testid="stDataFrame"] { border-radius:6px; overflow:hidden; }
-@media (max-width: 760px) {
-  [data-testid="stMainBlockContainer"] { padding:4.6rem 1.1rem; }
-  h1 { font-size:2.6rem !important; }
-  [data-testid="stMetricValue"] { font-size:2rem; }
-  .atlas-brand { margin-bottom:1.5rem; }
-}
-@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior:auto !important; transition:none !important; } }
-/* React Aria controls in Streamlit 1.66; use semantic attributes, never generated class names. */
-[data-testid="stSidebar"] .react-aria-ComboBox > [role="group"] { background:#253b38; border:1px solid #40534c; border-radius:6px; }
-[data-testid="stSidebar"] .react-aria-ComboBox input { color:#f0f3eb !important; background:transparent; font-size:.8rem; }
-[data-testid="stSidebar"] .react-aria-ComboBox button { background:transparent; color:#c0ccc6; }
-[data-testid="stSidebar"] [data-testid="stMultiSelect"] [role="group"] { background:#253b38; border-color:#40534c; }
-[data-testid="stSidebar"] [data-testid="stMultiSelect"] input { color:#f0f3eb; }
-[data-testid="stSidebar"] .react-aria-ComboBox { background:#253b38; border-color:#40534c; color:#f0f3eb; border-radius:6px; }
-[data-testid="stSidebar"] [data-tag] { background:#3b5750; color:#f0f3eb; border-radius:4px; }
-[data-testid="stSidebar"] button:focus-visible, [data-testid="stSidebar"] input:focus-visible { outline-color:#b8cfbc !important; }
+/* Only Atlas-owned HTML and documented st.container(key=...) classes.
+   Native widgets, focus states and typography use supported Streamlit theme options. */
+:root { --atlas-ink:#26342e; --atlas-muted:#5e6b63; --atlas-line:#dedfd5; --atlas-accent:#286c60; }
+.atlas-eyebrow { font:500 .7rem/1.6 ui-monospace,monospace; letter-spacing:.15em; text-transform:uppercase; color:var(--atlas-accent); margin-bottom:.8rem; }
+.atlas-brand { display:flex; align-items:center; gap:12px; margin:.5rem 0 2rem; }
+.atlas-mark { width:34px; height:40px; border:1px solid #96b5a7; border-radius:50% 50% 3px 3px; display:grid; place-items:center; color:#d4e2d6; font:25px Georgia,serif; }
+.atlas-brand-name { color:#f7f5ec; font-size:1.05rem; letter-spacing:.1em; }
+.atlas-brand-sub { color:#b9c7be; font:.64rem/1.9 ui-monospace,monospace; letter-spacing:.1em; text-transform:uppercase; }
+.atlas-sidebar-note { border-top:1px solid #53675c; color:#c4cfc6; padding-top:1rem; margin-top:2rem; font-size:.8rem; line-height:1.7; }
+.atlas-period { display:flex; flex-wrap:wrap; gap:.8rem; align-items:center; color:var(--atlas-muted); font-size:.82rem; margin:.4rem 0 1.2rem; }
+.atlas-period span:first-child { border:1px solid #cbd8ca; background:#e8eee3; color:#315748; padding:.3rem .65rem; border-radius:4px; font:.75rem ui-monospace,monospace; }
+.atlas-nav { display:flex; flex-wrap:wrap; gap:.6rem 1.5rem; padding:1rem 0; margin-bottom:1.4rem; border-top:1px solid var(--atlas-line); border-bottom:1px solid var(--atlas-line); }
+.atlas-nav a { font-size:.8rem; color:#3b5147; text-decoration:none; padding:.35rem 0; }
+.atlas-nav a:hover { color:var(--atlas-accent); text-decoration:underline; text-underline-offset:.35rem; }
+.atlas-nav a:focus-visible { outline:2px solid var(--atlas-accent); outline-offset:4px; }
+.atlas-anchor { scroll-margin-top:5rem; margin-top:2.8rem; }
+.atlas-section { color:var(--atlas-accent); font:.7rem/1.7 ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase; margin-bottom:.2rem; }
+.st-key-atlas_map_panel, .st-key-atlas_detail_panel { background:#fffef9; }
+.atlas-insight { border-left:2px solid var(--atlas-accent); padding:.5rem 0 .5rem 1.2rem; margin:1rem 0; max-width:80ch; color:#4d5f53; font-size:.95rem; line-height:1.75; }
+.atlas-footer { display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem; border-top:1px solid var(--atlas-line); margin-top:3rem; padding:1.5rem 0; color:var(--atlas-muted); font-size:.8rem; }
+@media(max-width:640px) { .atlas-nav { gap:.5rem 1rem; } .atlas-nav a { font-size:.78rem; } .atlas-anchor { margin-top:1.8rem; } .atlas-insight { font-size:.9rem; } }
+@media(prefers-reduced-motion:reduce) { .atlas-nav a { transition:none; } }
